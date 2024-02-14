@@ -1,0 +1,101 @@
+spring:
+  # 资源信息
+  profiles:
+    active: @profiles.active@
+
+# 开发环境配置
+server:
+  port: 9003
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  # undertow 配置
+  undertow:
+    # HTTP post内容的最大大小。当值为-1时，默认值为大小是无限的
+    max-http-post-size: -1
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 512
+    # 是否分配的直接内存
+    direct-buffers: true
+    threads:
+      # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+      io: 8
+      # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+      worker: 256
+
+sa-token:
+  # token名称
+  token-name: Authorization
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: false
+  # 是否有日志
+  is-log: false
+  # token有效期
+  timeout: 2592000
+  # 临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  active-timeout: -1
+  # 密钥
+  jwt-secret-key: ywj
+  # 前缀
+  token-prefix: "Beare "
+  alone-redis:
+    # 地址
+    host: 43.139.142.207
+    # 端口，默认为6379
+    port: 6379
+    # 数据库索引
+    database: 2
+    # 密码(如没有密码请注释掉)
+    password: 20040816Ywj
+    username: default
+    # 连接超时时间
+    timeout: 10s
+
+#aliyun:
+#  sms:
+#    sms-access-key-id: LTAI5tPJUvG9SibMtS2Tq1SN
+#    sms-access-key-secret: OeM2AM9GAgIfv7mLyxvgYWjkkHUrA1
+#    #签名名称
+#    sms-sign-name: 阿里云短信测试
+#    #短信模板信息
+#    sms-template-code: SMS_154950909
+#    sms-endpoint: dysmsapi.aliyuncs.com
+#
+#--- # redis 单机配置(单机与集群只能开启一个另一个需要注释掉)
+#spring.data:
+#  redis:
+#    # 地址
+#    host: 43.139.142.207
+#    # 端口，默认为6379
+#    port: 6379
+#    # 数据库索引
+#    database: 0
+#    # 密码(如没有密码请注释掉)
+#    password: 20040816Ywj
+#    username: default
+#    # 连接超时时间
+#    timeout: 10s
+#    # 是否开启ssl
+#    ssl.enabled: false
+
+
+# MyBatisPlus配置
+# https://baomidou.com/config/
+mybatis-plus:
+  # 不支持多包, 如有需要可在注解配置 或 提升扫包等级
+  # 例如 com.**.**.mapper
+  mapperPackage: org.dromara.**.mapper
+  # 对应的 XML 文件位置
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  # 实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: org.dromara.**.domain
+  global-config:
+    dbConfig:
+      # 主键类型
+      # AUTO 自增 NONE 空 INPUT 用户输入 ASSIGN_ID 雪花 ASSIGN_UUID 唯一 UUID
+      # 如需改为自增 需要将数据库表全部设置为自增
+      idType: ASSIGN_ID
+
