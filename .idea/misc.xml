@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/admin/pom.xml" />
         <option value="$PROJECT_DIR$/modules/system/pom.xml" />
         <option value="$PROJECT_DIR$/modules/manage/pom.xml" />
+        <option value="$PROJECT_DIR$/common/ruoyi-common-security/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
