@@ -21,7 +21,16 @@ public class UserException extends RuntimeException{
      * 错误码对应的参数
      */
     private Object[] args;
+    public UserException(String message) {
+        super(message);
+    }
+
+    public UserException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
     public UserException(String code, Object... args) {
+        super(String.format(code, args)); // 格式化消息
         this.code = code;
         this.args = args;
     }

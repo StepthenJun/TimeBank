@@ -12,7 +12,7 @@ public class PasswordLoginBody extends LoginBody{
      * 用户名
      */
     @NotBlank(message = "{user.username.not.blank}")
-    private String username;
+    private String account;
 
     /**
      * 用户密码

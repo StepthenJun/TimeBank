@@ -21,11 +21,15 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
     @Override
-    public void register(String username, String password,String phone) {
+    public void register(String username, String password,String phone,String code) {
         User one = getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getPhonenumber, phone)
         );
-        if (!ObjectUtil.isEmpty(one)){
+        String vaildcode = RedisUtils.getCacheObject(Captcha.CAPTCHA_CODE_KEY + phone);
+        if (!vaildcode.equals(code)){
+            throw new UserException("验证码错误");
+        }
+        else if (!ObjectUtil.isEmpty(one)){
             throw new UserException("该手机号已被注册:{}",phone);
         }
         else if (UserStatus.DISABLE.getCode().equals(one.getStatus())){

@@ -6,6 +6,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.example.client.service.UserService;
 import com.example.core.domain.model.RegisterBody;
+import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class LoginController {
 
     // 发送短信验证码的接口
     @GetMapping("/sms/code")
-    public R<Void> smsCode(@NotBlank(message = "手机号不能为空") String phonenumber) throws Exception {
+    public R<String> smsCode(@NotBlank(message = "手机号不能为空") String phonenumber) throws Exception {
         ValidatorUtils.validate(phonenumber);
         String key = Captcha.CAPTCHA_CODE_KEY + phonenumber;
         String code = RandomUtil.randomNumbers(4);
@@ -49,28 +50,31 @@ public class LoginController {
             return R.fail();
         }
         log.info("验证码为：{}",code);
-        return R.ok();
+        return R.ok("验证码已发送，注意接收，2分钟内有效");
     }
 
     // 登录界面
     @PostMapping("/login")
-    public Boolean login(@Validated @RequestBody String body) throws Exception {
+    public R<LoginVo> login(@Validated @RequestBody String body) throws Exception {
         LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
         // 校验传参
         ValidatorUtils.validate(loginBody);
         String grantType = loginBody.getGrantType();
-        IAuthStrategy.login(body,grantType);
-        return null;
+        LoginVo login = IAuthStrategy.login(body, grantType);
+        return R.ok(login);
     }
+
     // 注册
     @PostMapping("/register")
-    public R<Void> register(@Validated @RequestBody RegisterBody registerBody) {
+    public R<String> register(@Validated @RequestBody RegisterBody registerBody) {
         ValidatorUtils.validate(registerBody);
         String phone = registerBody.getPhone();
         String username = registerBody.getUsername();
         String password = registerBody.getPassword();
         String userType = registerBody.getUserType();
-        userService.register(username,password,phone);
+        String code = registerBody.getCode();
+        userService.register(username,password,phone,code);
+
         return R.ok();
     }
     // 找回密码

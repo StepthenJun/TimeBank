@@ -14,8 +14,14 @@ import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
 import com.example.core.constant.Captcha;
 import com.example.redis.util.RedisUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Slf4j
+@Service("Sms" + IAuthStrategy.BASE_NAME)
+@RequiredArgsConstructor
 public class SmsAuth implements IAuthStrategy {
     @Autowired
     private UserService userService;
@@ -49,7 +55,6 @@ public class SmsAuth implements IAuthStrategy {
 
     private User loadUserByPhonenumber(String phonenumber) {
         User one = userService.getOne(new LambdaQueryWrapper<User>()
-                .select(User::getPhonenumber, User::getStatus)
                 .eq(User::getPhonenumber, phonenumber));
         if (ObjectUtil.isEmpty(one)){
             throw new UserException("账号不存在{},请先注册", phonenumber);

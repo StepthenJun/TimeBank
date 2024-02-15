@@ -140,15 +140,7 @@ public class GlobalExceptionHandler {
         String message = Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage();
         return R.fail(message);
     }
-    /**
-     * 自定义验证异常
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public R<Void> handleConstraintViolationException(ConstraintViolationException e) {
-        log.error(e.getMessage());
-        String message = StreamUtils.join(e.getConstraintViolations(), ConstraintViolation::getMessage, ", ");
-        return R.fail(message);
-    }
+
 
 
 }

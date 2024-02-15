@@ -52,8 +52,9 @@ public class User implements Serializable {
     private String avatar;
 
     /**
-     * 删除标志（0代表未删除，1代表已删除）
+     * 删除标志（0:未删除，1:已删除）
      */
+    @TableField("del_flag")
     private Integer delFlag;
 
     /**

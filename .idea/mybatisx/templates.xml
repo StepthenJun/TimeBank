@@ -6,7 +6,7 @@
         <option name="generateConfig">
           <GenerateConfig>
             <option name="annotationType" value="MYBATIS_PLUS3" />
-            <option name="basePackage" value="com/client" />
+            <option name="basePackage" value="com.example.client" />
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
             <option name="encoding" value="UTF-8" />
@@ -69,12 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="User" />
-                  <option name="tableName" value="user" />
-                </TableUIInfo>
-                <TableUIInfo>
-                  <option name="className" value="Role" />
-                  <option name="tableName" value="role" />
+                  <option name="className" value="AuthIdCard" />
+                  <option name="tableName" value="auth_id_card" />
                 </TableUIInfo>
               </list>
             </option>

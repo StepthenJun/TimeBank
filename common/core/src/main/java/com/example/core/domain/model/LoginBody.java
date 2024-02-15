@@ -14,11 +14,11 @@ public class LoginBody implements Serializable {
     /**
      * 授权类型
      */
-    @NotBlank()
+    @NotBlank(message = "授权类型不能为空")
     private String grantType;
     /**
      * 唯一标识
      */
-    private String uuid;
+//    private String uuid;
 
 }
