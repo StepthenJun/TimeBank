@@ -38,9 +38,11 @@ public class LoginController {
     // 发送短信验证码的接口
     @GetMapping("/sms/code")
     public R<String> smsCode(@NotBlank(message = "手机号不能为空") String phonenumber) throws Exception {
+        // 校验工具
         ValidatorUtils.validate(phonenumber);
         String key = Captcha.CAPTCHA_CODE_KEY + phonenumber;
         String code = RandomUtil.randomNumbers(4);
+        // 验证码放入缓存（1分钟）
         RedisUtils.setCacheObject(key, code, Duration.ofMinutes(Captcha.CAPTCHA_EXPIRATION));
         HashMap<String, Object> map = new HashMap<>();
         map.put("code", code);
@@ -56,9 +58,11 @@ public class LoginController {
     // 登录界面
     @PostMapping("/login")
     public R<LoginVo> login(@Validated @RequestBody String body) throws Exception {
+        // 转为loginbody查找登入类型
         LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
         // 校验传参
         ValidatorUtils.validate(loginBody);
+        // 获取登录类型后选择不同登录方法
         String grantType = loginBody.getGrantType();
         LoginVo login = IAuthStrategy.login(body, grantType);
         return R.ok(login);
@@ -67,10 +71,12 @@ public class LoginController {
     // 注册
     @PostMapping("/register")
     public R<String> register(@Validated @RequestBody RegisterBody registerBody) {
+        // 校验传参
         ValidatorUtils.validate(registerBody);
         String phone = registerBody.getPhone();
         String username = registerBody.getUsername();
         String password = registerBody.getPassword();
+        // 管理员是否要注册？
         String userType = registerBody.getUserType();
         String code = registerBody.getCode();
         userService.register(username,password,phone,code);

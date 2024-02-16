@@ -12,6 +12,6 @@ public interface Captcha {
     /**
      * 验证码有效期（分钟）
      */
-    Integer CAPTCHA_EXPIRATION = 2;
+    Integer CAPTCHA_EXPIRATION = 1;
 
 }

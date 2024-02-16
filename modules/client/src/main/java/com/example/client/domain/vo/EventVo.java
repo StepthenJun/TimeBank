@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,5 +39,20 @@ public class EventVo {
      * 奖励时间币的个数
      */
     private Integer reward;
+
+    /**
+     * 当前报名人数
+     */
+    private Integer curentNum;
+
+    /**
+     * 创立者id
+     */
+    private Long createBy;
+
+    /**
+     * 执行时间
+     */
+    private Date executionTime;
 
 }
