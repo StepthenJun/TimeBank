@@ -16,7 +16,7 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/address")
 public class GetAddress {
-    // 获取位置并报错到缓存中
+    // 获取位置并保存到缓存中
     @GetMapping
     public R<Void> saveaddress(String phone, BigDecimal x,BigDecimal y){
         HashMap<String,Object> map = new HashMap<>();

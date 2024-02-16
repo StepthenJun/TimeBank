@@ -70,11 +70,12 @@ public class UserController {
      * 主页获取用户信息
      * @return UserVo 用户可显信息
      */
-    @GetMapping("/index/{id}")
+    @GetMapping("/index/{userId}")
     public R<UserVo> getUserMsg(@NotNull(message = "主键不能为空") @PathVariable Long userId){
-        // 感觉有问题，如果区分志愿者和服务者的话返回的主页一样吗？
+        // TODO 感觉有问题，如果区分志愿者和服务者的话返回的主页一样吗？
         User one = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getId, userId));
         UserVo userVo = BeanUtil.copyProperties(one, UserVo.class);
+        log.info("user:{}",one);
         return R.ok(userVo);
     }
 
@@ -85,7 +86,7 @@ public class UserController {
     @GetMapping("/publishevents")
     public R<List<EventVo>> getpublisheventsByuser(@RequestParam Long userId){
         List<Event> events = eventService.list(new LambdaQueryWrapper<Event>()
-                .eq(Event::getId, userId));
+                .eq(Event::getCreateBy, userId));
         List<EventVo> eventVos = events.stream()
                 .map(event -> {
                     EventVo eventVo = new EventVo();

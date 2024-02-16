@@ -66,6 +66,7 @@ public class EventManageController {
         }
         // 未通过则放入错误信息
         try {
+            // TODO 失败原因没地方存储
             // 数据库还未设计出失败原因字段
             String failReason = auditBody.getFailReason();
             eventService.update(new LambdaUpdateWrapper<Event>()
