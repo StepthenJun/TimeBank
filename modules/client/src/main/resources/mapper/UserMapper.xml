@@ -15,12 +15,13 @@
             <result property="delFlag" column="del_flag" jdbcType="INTEGER"/>
             <result property="account" column="account" jdbcType="VARCHAR"/>
             <result property="score" column="score" jdbcType="INTEGER"/>
+            <result property="volunteerHours" column="volunteer_hours" jdbcType="TIME"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_name,password,
         type,status,phonenumber,
         avatar,del_flag,account,
-        score
+        score,volunteer_hours
     </sql>
 </mapper>

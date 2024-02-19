@@ -14,6 +14,7 @@ spring.data:
     timeout: 10s
     # 是否开启ssl
     ssl.enabled: false
+#    短信配置
 aliyun:
   sms:
     sms-access-key-id: LTAI5tPJUvG9SibMtS2Tq1SN
@@ -23,6 +24,13 @@ aliyun:
     #短信模板信息
     sms-template-code: SMS_154950909
     sms-endpoint: dysmsapi.aliyuncs.com
+#    oss配置
+oss:
+  endpoint: oss-accelerate.aliyuncs.com
+  accessKeyId: LTAI5tPJUvG9SibMtS2Tq1SN
+  accessKeySecret: OeM2AM9GAgIfv7mLyxvgYWjkkHUrA1
+  bucketName: web-tilas-y
+
 spring:
   datasource:
     url: jdbc:mysql://43.139.142.207:3306/timebank?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&rewriteBatchedStatements=true

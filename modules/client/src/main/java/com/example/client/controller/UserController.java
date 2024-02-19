@@ -15,7 +15,7 @@ import com.example.client.service.AuthIdCardService;
 import com.example.client.service.EventService;
 import com.example.client.service.UserService;
 import com.example.core.domain.R;
-import com.example.core.domain.model.AuthIdCardBody;
+import com.example.core.domain.model.user.AuthIdCardBody;
 import com.example.core.util.ValidatorUtils;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

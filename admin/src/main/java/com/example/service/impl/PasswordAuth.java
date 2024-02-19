@@ -2,13 +2,12 @@ package com.example.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.core.exception.UserException;
 import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
-import com.example.core.domain.model.PasswordLoginBody;
+import com.example.core.domain.model.user.PasswordLoginBody;
 import com.example.core.util.JsonUtils;
 import com.example.core.util.ValidatorUtils;
 import lombok.RequiredArgsConstructor;

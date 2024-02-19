@@ -5,7 +5,7 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.example.client.service.UserService;
-import com.example.core.domain.model.RegisterBody;
+import com.example.core.domain.model.user.RegisterBody;
 import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
 import jakarta.validation.constraints.NotBlank;
@@ -13,11 +13,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.example.core.constant.Captcha;
 import com.example.core.domain.R;
-import com.example.core.domain.model.LoginBody;
+import com.example.core.domain.model.user.LoginBody;
 import com.example.core.util.JsonUtils;
 import com.example.core.util.ValidatorUtils;
 import com.example.redis.util.RedisUtils;
-import org.example.sms.util.AliyunSmsUtil;
+import com.example.sms.util.AliyunSmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +34,9 @@ import java.util.HashMap;
 public class LoginController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AliyunSmsUtil AliyunSmsUtil;
+
 
     // 发送短信验证码的接口
     @GetMapping("/sms/code")

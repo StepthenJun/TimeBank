@@ -55,4 +55,6 @@ public class EventVo {
      */
     private Date executionTime;
 
+    private String userName;
+
 }

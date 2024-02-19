@@ -1,4 +1,4 @@
-package com.example.core.domain.model;
+package com.example.core.domain.model.user;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

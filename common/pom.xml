@@ -17,6 +17,7 @@
         <module>sms</module>
         <module>core</module>
         <module>oss</module>
+        <module>security</module>
     </modules>
     <dependencies>
         <dependency>

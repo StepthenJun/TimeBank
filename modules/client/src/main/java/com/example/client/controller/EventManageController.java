@@ -4,13 +4,15 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.client.domain.Event;
+import com.example.client.domain.Participations;
+import com.example.client.domain.vo.UserVo;
 import com.example.client.service.EventService;
+import com.example.client.service.ParticipationsService;
 import com.example.core.domain.R;
-import com.example.core.domain.model.AuditBody;
+import com.example.core.domain.model.event.AuditBody;
 import com.example.core.enums.EventStatus;
-import com.example.core.exception.UserException;
+import com.example.core.exception.EventException;
 import com.example.core.util.ValidatorUtils;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +32,14 @@ public class EventManageController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private ParticipationsService participationsService;
+
     /**
-     * @desciption: 返回所有需求列表 审核和未审核的一并交给前端分开展示
-     * @return
+     * 返回所有需求列表 审核和未审核的一并交给前端分开展示
+     * @return 审核的列表
      */
+    // TODO 分页查询
     @GetMapping("/eventlist")
     public R<List<Event>> getEventList(){
         List<Event> list = eventService.list();
@@ -42,12 +48,10 @@ public class EventManageController {
 
 
     /**
-     * @description: 根据需求id对需求进行审核
-     * @param auditBody
-     * @return
+     *  根据需求id对需求进行审核
+     * @return 提示信息就好了
      */
-    // TODO 记得新增需求事件的异常类
-    @PostMapping("/audit")
+    @PostMapping("/auditevent")
     public R<String> auditEvent(@Validated @RequestBody AuditBody auditBody) {
         ValidatorUtils.validate(auditBody);
         String auditManager = auditBody.getAuditManager();
@@ -61,20 +65,43 @@ public class EventManageController {
                         .set(Event::getStatus, EventStatus.PASS.getCode()));
                 return R.ok("操作成功");
             } catch (Exception e) {
-                throw new UserException("更新错误");
+                throw new EventException("更新错误");
             }
         }
         // 未通过则放入错误信息
         try {
-            // TODO 失败原因没地方存储
-            // 数据库还未设计出失败原因字段
             String failReason = auditBody.getFailReason();
             eventService.update(new LambdaUpdateWrapper<Event>()
                     .eq(Event::getId, eventId)
-                    .set(Event::getStatus, EventStatus.UNPASS.getCode()));
+                    .set(Event::getStatus, EventStatus.UNPASS.getCode())
+                    .set(Event::getDefaultReason,failReason));
             return R.ok("操作成功");
         }catch (Exception e) {
-            throw new UserException("更新错误");
+            throw new EventException("更新错误");
         }
     }
+
+    /**
+     * 查看参加的人
+     * @return 返回申请者的列表
+     */
+    // TODO 查看参与者的信息需要哪些不确定
+    @GetMapping("/participationbyevent")
+    public R<List<Participations>> getparticipationByeventId(@RequestParam Long eventid){
+        participationsService.list(new LambdaQueryWrapper<Participations>()
+                .eq(Participations::getEventId,eventid));
+        return null;
+    }
+
+
+    /**
+     * 对参与者进行审核
+     * @return 提示信息
+     */
+    @PostMapping("/auditparticipation")
+    public R<String> auditparticipation(@RequestBody List<UserVo> user){
+        return R.ok();
+    }
+
+
 }

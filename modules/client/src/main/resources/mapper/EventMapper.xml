@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.example.client.domain.Event">
             <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="needNum" column="need_num" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -16,12 +17,14 @@
             <result property="reward" column="reward" jdbcType="INTEGER"/>
             <result property="createBy" column="create_by" jdbcType="BIGINT"/>
             <result property="curentNum" column="curent_num" jdbcType="INTEGER"/>
+            <result property="defaultReason" column="default_reason" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,description,need_num,
-        create_time,execution_time,address,
-        status,del_flag,reward,
-        create_by,curent_num
+        id,name,description,
+        need_num,create_time,execution_time,
+        address,status,del_flag,
+        reward,create_by,curent_num,
+        default_reason
     </sql>
 </mapper>

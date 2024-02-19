@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.redisson.api.*;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +15,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.example.core.constant.Address.SIGN_IN_KEY_PREFIX;
 
 /**
  * redis 工具类
@@ -23,6 +27,7 @@ import java.util.stream.Stream;
 public class RedisUtils {
 
     private static final RedissonClient CLIENT = SpringUtil.getBean(RedissonClient.class);
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     /**
      * 限流
@@ -436,4 +441,28 @@ public class RedisUtils {
         RKeys rKeys = CLIENT.getKeys();
         return rKeys.countExists(key) > 0;
     }
+
+    // 添加地理位置
+    public void addLocation(String key, double longitude, double latitude, String member) {
+        CLIENT.getGeo(key).add(longitude, latitude, member);
+    }
+
+    // 获取地理位置
+    public GeoPosition getLocation(String key, String member) {
+        Map<Object, GeoPosition> positions = CLIENT.getGeo(key).pos(member);
+        return positions.get(member);
+    }
+    public static void recordSignIn(Long userId, Long eventId) {
+        String key = SIGN_IN_KEY_PREFIX + "event:" + eventId + ":user:" + userId;
+        String signInTime = LocalDateTime.now().format(FORMATTER);
+        CLIENT.getBucket(key).set(signInTime);
+    }
+
+    public static String getSignInTime(Long userId, Long eventId) {
+        String key = SIGN_IN_KEY_PREFIX + "event:" + eventId + ":user:" + userId;
+        return (String) CLIENT.getBucket(key).get();
+    }
+
+
+
 }

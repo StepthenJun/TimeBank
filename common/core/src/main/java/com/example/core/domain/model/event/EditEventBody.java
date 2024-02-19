@@ -1,17 +1,31 @@
-package com.example.core.domain.model;
+package com.example.core.domain.model.event;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-@EqualsAndHashCode
-public class PulishEventBody {
+public class EditEventBody implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 需求名字
+     */
+    private String name;
+
+    /**
+     * 需求id
+     */
+    private Long eventId;
+
     /**
      * 需求描述
      */
@@ -41,11 +55,5 @@ public class PulishEventBody {
     @Pattern(regexp = "yyyy-MM-dd HH:mm:ss",message = "时间格式错误")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date executionTime;
-
-    /**
-     * 创立者id
-     */
-    @NotNull(message = "创立者不能为空")
-    private Long createBy;
 
 }

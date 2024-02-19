@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.client.domain.User;
 import com.example.client.service.UserService;
-import com.example.core.domain.model.SmsLoginBody;
+import com.example.core.domain.model.user.SmsLoginBody;
 import com.example.core.enums.UserStatus;
 import com.example.core.exception.UserException;
 import com.example.core.util.JsonUtils;

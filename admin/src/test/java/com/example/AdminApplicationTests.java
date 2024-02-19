@@ -9,21 +9,35 @@ import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.api.IdCardAuth;
 import com.example.core.constant.Captcha;
+import com.example.oss.util.AliyunOSSUtil;
+import com.example.oss.util.FileService;
 import com.example.redis.util.RedisUtils;
-import org.example.sms.util.AliyunSmsUtil;
+import com.example.sms.util.AliyunSmsUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(classes = AdminApplication.class)
 @ComponentScan()
 class AdminApplicationTests {
     @Autowired
     private  UserService userService;
+    @Autowired
+    private AliyunSmsUtil AliyunSmsUtil;
+    @Autowired
+    private FileService fileService;
     @Test
     void idcardauth() {
         String cardno = "350427200408161034";
@@ -88,4 +102,25 @@ class AdminApplicationTests {
         }
         System.out.println("密码错误提供的密码不正确");
     }
+
+    @Test
+    void testOss() throws IOException {
+        // 读取文件作为InputStream
+        String filePath = "D:\\SOSD\\TimeBankSystem\\admin\\src\\main\\resources\\static\\test.txt";
+        InputStream inputStream = Files.newInputStream(Paths.get(filePath));
+
+        // 创建MockMultipartFile对象
+        MultipartFile multipartFile = new MockMultipartFile(
+                "file", // 文件参数名称
+                "test.txt", // 文件名
+                "text/plain", // 文件类型
+                inputStream);
+
+        // 调用上传方法
+        String fileKey = AliyunOSSUtil.uploadFile(multipartFile);
+
+        // 断言返回的文件key不为空
+        assertNotNull(fileKey);
     }
+
+}

@@ -69,8 +69,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="AuthIdCard" />
-                  <option name="tableName" value="auth_id_card" />
+                  <option name="className" value="Comment" />
+                  <option name="tableName" value="comment" />
                 </TableUIInfo>
               </list>
             </option>

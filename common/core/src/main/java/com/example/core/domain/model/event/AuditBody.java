@@ -1,4 +1,4 @@
-package com.example.core.domain.model;
+package com.example.core.domain.model.event;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -34,5 +34,7 @@ public class AuditBody implements Serializable {
      * 失败原因
      */
     private String failReason;
+
+
 
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
@@ -23,7 +24,6 @@ public class User implements Serializable {
     /**
      * 用户名
      */
-    @TableField("user_name")
     private String userName;
 
     /**
@@ -52,9 +52,8 @@ public class User implements Serializable {
     private String avatar;
 
     /**
-     * 删除标志（0:未删除，1:已删除）
+     * 删除标志（0代表未删除，1代表已删除）
      */
-    @TableField("del_flag")
     private Integer delFlag;
 
     /**
@@ -66,6 +65,11 @@ public class User implements Serializable {
      * 信誉分值
      */
     private Integer score;
+
+    /**
+     * 志愿时长
+     */
+    private Date volunteerHours;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -91,7 +95,8 @@ public class User implements Serializable {
             && (this.getAvatar() == null ? other.getAvatar() == null : this.getAvatar().equals(other.getAvatar()))
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
-            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()));
+            && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
+            && (this.getVolunteerHours() == null ? other.getVolunteerHours() == null : this.getVolunteerHours().equals(other.getVolunteerHours()));
     }
 
     @Override
@@ -108,6 +113,7 @@ public class User implements Serializable {
         result = prime * result + ((getDelFlag() == null) ? 0 : getDelFlag().hashCode());
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
+        result = prime * result + ((getVolunteerHours() == null) ? 0 : getVolunteerHours().hashCode());
         return result;
     }
 
@@ -127,6 +133,7 @@ public class User implements Serializable {
         sb.append(", delFlag=").append(delFlag);
         sb.append(", account=").append(account);
         sb.append(", score=").append(score);
+        sb.append(", volunteerHours=").append(volunteerHours);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

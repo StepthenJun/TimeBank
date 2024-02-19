@@ -1,12 +1,10 @@
 package com.example.client.domain;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.Data;
 
@@ -24,6 +22,11 @@ public class Event implements Serializable {
     private Long id;
 
     /**
+     * 需求名称
+     */
+    private String name;
+
+    /**
      * 需求描述
      */
     private String description;
@@ -36,7 +39,7 @@ public class Event implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 执行时间
@@ -73,6 +76,11 @@ public class Event implements Serializable {
      */
     private Integer curentNum;
 
+    /**
+     * 审核失败原因
+     */
+    private String defaultReason;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -89,6 +97,7 @@ public class Event implements Serializable {
         }
         Event other = (Event) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getNeedNum() == null ? other.getNeedNum() == null : this.getNeedNum().equals(other.getNeedNum()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
@@ -98,7 +107,8 @@ public class Event implements Serializable {
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
             && (this.getReward() == null ? other.getReward() == null : this.getReward().equals(other.getReward()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
-            && (this.getCurentNum() == null ? other.getCurentNum() == null : this.getCurentNum().equals(other.getCurentNum()));
+            && (this.getCurentNum() == null ? other.getCurentNum() == null : this.getCurentNum().equals(other.getCurentNum()))
+            && (this.getDefaultReason() == null ? other.getDefaultReason() == null : this.getDefaultReason().equals(other.getDefaultReason()));
     }
 
     @Override
@@ -106,6 +116,7 @@ public class Event implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getNeedNum() == null) ? 0 : getNeedNum().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
@@ -116,6 +127,7 @@ public class Event implements Serializable {
         result = prime * result + ((getReward() == null) ? 0 : getReward().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCurentNum() == null) ? 0 : getCurentNum().hashCode());
+        result = prime * result + ((getDefaultReason() == null) ? 0 : getDefaultReason().hashCode());
         return result;
     }
 
@@ -126,6 +138,7 @@ public class Event implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
         sb.append(", description=").append(description);
         sb.append(", needNum=").append(needNum);
         sb.append(", createTime=").append(createTime);
@@ -136,6 +149,7 @@ public class Event implements Serializable {
         sb.append(", reward=").append(reward);
         sb.append(", createBy=").append(createBy);
         sb.append(", curentNum=").append(curentNum);
+        sb.append(", defaultReason=").append(defaultReason);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

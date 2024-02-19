@@ -1,0 +1,18 @@
+package com.example.client.mapper;
+
+import com.example.client.domain.Participations;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+/**
+* @author 86187
+* @description 针对表【participations(参与者表)】的数据库操作Mapper
+* @createDate 2024-02-19 11:53:02
+* @Entity com.example.client.domain.Participations
+*/
+public interface ParticipationsMapper extends BaseMapper<Participations> {
+
+}
+
+
+
+
