@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.example.client.service.UserService;
@@ -32,10 +33,9 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private AliyunSmsUtil AliyunSmsUtil;
+
+    private final UserService userService;
+    private final AliyunSmsUtil AliyunSmsUtil;
 
 
     // 发送短信验证码的接口
@@ -79,8 +79,8 @@ public class LoginController {
         String phone = registerBody.getPhone();
         String username = registerBody.getUsername();
         String password = registerBody.getPassword();
-        // 管理员是否要注册？
-        String userType = registerBody.getUserType();
+        // 使用工具类对密码进行加密
+        password = BCrypt.hashpw(password);
         String code = registerBody.getCode();
         userService.register(username,password,phone,code);
 

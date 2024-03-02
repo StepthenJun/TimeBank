@@ -2,6 +2,7 @@ package com.example.client.mapper;
 
 import com.example.client.domain.Follows;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author 86187
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-02-19 11:40:15
 * @Entity com.example.client.domain.Follows
 */
+@Mapper
 public interface FollowsMapper extends BaseMapper<Follows> {
 
 }

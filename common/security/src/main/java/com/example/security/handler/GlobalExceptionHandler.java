@@ -141,6 +141,4 @@ public class GlobalExceptionHandler {
         return R.fail(message);
     }
 
-
-
 }

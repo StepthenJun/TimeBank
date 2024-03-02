@@ -16,12 +16,13 @@
             <result property="account" column="account" jdbcType="VARCHAR"/>
             <result property="score" column="score" jdbcType="INTEGER"/>
             <result property="volunteerHours" column="volunteer_hours" jdbcType="TIME"/>
+            <result property="isRealName" column="is_real_name" jdbcType="TINYINT"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,user_name,password,
         type,status,phonenumber,
         avatar,del_flag,account,
-        score,volunteer_hours
+        score,volunteer_hours,is_real_name
     </sql>
 </mapper>

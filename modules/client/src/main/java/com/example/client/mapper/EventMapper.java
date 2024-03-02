@@ -2,6 +2,7 @@ package com.example.client.mapper;
 
 import com.example.client.domain.Event;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author 86187
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2024-02-19 11:35:31
 * @Entity com.example.client.domain.Event
 */
+@Mapper
 public interface EventMapper extends BaseMapper<Event> {
 
 }

@@ -71,6 +71,11 @@ public class User implements Serializable {
      */
     private Date volunteerHours;
 
+    /**
+     * 是否实名
+     */
+    private Integer isRealName;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -96,7 +101,8 @@ public class User implements Serializable {
             && (this.getDelFlag() == null ? other.getDelFlag() == null : this.getDelFlag().equals(other.getDelFlag()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getScore() == null ? other.getScore() == null : this.getScore().equals(other.getScore()))
-            && (this.getVolunteerHours() == null ? other.getVolunteerHours() == null : this.getVolunteerHours().equals(other.getVolunteerHours()));
+            && (this.getVolunteerHours() == null ? other.getVolunteerHours() == null : this.getVolunteerHours().equals(other.getVolunteerHours()))
+            && (this.getIsRealName() == null ? other.getIsRealName() == null : this.getIsRealName().equals(other.getIsRealName()));
     }
 
     @Override
@@ -114,6 +120,7 @@ public class User implements Serializable {
         result = prime * result + ((getAccount() == null) ? 0 : getAccount().hashCode());
         result = prime * result + ((getScore() == null) ? 0 : getScore().hashCode());
         result = prime * result + ((getVolunteerHours() == null) ? 0 : getVolunteerHours().hashCode());
+        result = prime * result + ((getIsRealName() == null) ? 0 : getIsRealName().hashCode());
         return result;
     }
 
@@ -134,6 +141,7 @@ public class User implements Serializable {
         sb.append(", account=").append(account);
         sb.append(", score=").append(score);
         sb.append(", volunteerHours=").append(volunteerHours);
+        sb.append(", isRealName=").append(isRealName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

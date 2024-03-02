@@ -23,14 +23,15 @@ import org.springframework.stereotype.Service;
 @Service("Sms" + IAuthStrategy.BASE_NAME)
 @RequiredArgsConstructor
 public class SmsAuth implements IAuthStrategy {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
 
     @Override
     public LoginVo login(String body) {
         SmsLoginBody loginBody = JsonUtils.parseObject(body, SmsLoginBody.class);
         ValidatorUtils.validate(loginBody);
+        log.info(":{}",loginBody);
         String code = loginBody.getCode();
         String phone = loginBody.getPhone();
         User user = loadUserByPhonenumber(phone);
@@ -41,7 +42,7 @@ public class SmsAuth implements IAuthStrategy {
             String tokenValueByLoginId = StpUtil.getTokenValueByLoginId(id);
             return new LoginVo(tokenValueByLoginId);
         }
-        return null;
+        return LoginVo.withError("错误","验证码错误");
     }
 
     /**
@@ -49,7 +50,11 @@ public class SmsAuth implements IAuthStrategy {
      */
     private boolean validateSmsCode(String phonenumber, String smsCode) {
         // 存入缓存也用这个Captcha.CAPTCHA_CODE_KEY + phonenumber作为key
+        // TODO 如果随机填写验证码还没发送 会抛出异常 这里需要捕获一下
         String code = RedisUtils.getCacheObject(Captcha.CAPTCHA_CODE_KEY + phonenumber);
+        if (code == null){
+            throw new RuntimeException("请先发送短信验证吗");
+        }
         return code.equals(smsCode);
     }
 

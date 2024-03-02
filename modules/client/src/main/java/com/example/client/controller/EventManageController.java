@@ -29,11 +29,8 @@ import java.util.List;
 @RequestMapping("/eventmanage")
 public class EventManageController {
 
-    @Autowired
-    private EventService eventService;
-
-    @Autowired
-    private ParticipationsService participationsService;
+    private final EventService eventService;
+    private final ParticipationsService participationsService;
 
     /**
      * 返回所有需求列表 审核和未审核的一并交给前端分开展示
@@ -102,6 +99,4 @@ public class EventManageController {
     public R<String> auditparticipation(@RequestBody List<UserVo> user){
         return R.ok();
     }
-
-
 }

@@ -1,10 +1,12 @@
 package com.example.client.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.api.IdCardAuth;
 import com.example.client.domain.AuthIdCard;
 import com.example.client.domain.Event;
@@ -24,6 +26,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -35,14 +40,9 @@ import java.util.List;
 // TODO @SaIgnore要删去
 public class UserController {
 
-    @Autowired
-    private AuthIdCardService authIdCardService;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private EventService eventService;
+    private final AuthIdCardService authIdCardService;
+    private final UserService userService;
+    private final EventService eventService;
 
     /**
      * 用户进行实名认证
@@ -61,7 +61,21 @@ public class UserController {
         // 提取 'isok' 和 'birthday' 字段
         boolean isOk = jsonObj.getJSONObject("result").getBoolean("isok");
         AuthIdCard authIdCard = BeanUtil.copyProperties(authBody, AuthIdCard.class);
-        log.info("json:{}",jsonObj);
+        if (isOk){
+            // TODO 给用户的信息加个出生日期字段
+            String birthDateStr = idNumber.substring(6, 14); // 提取出生年月日部分
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            try {
+                Date birthDate = dateFormat.parse(birthDateStr);
+                System.out.println(birthDate);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            authIdCardService.save(authIdCard);
+            userService.update(new LambdaUpdateWrapper<User>()
+                    .eq(User::getId, StpUtil.getLoginIdAsLong())
+                    .set(User::getIsRealName,isOk));
+        }
         return isOk ? R.ok("实名认证成功") : R.fail("实名认证失败");
     }
 
@@ -72,7 +86,6 @@ public class UserController {
      */
     @GetMapping("/index/{userId}")
     public R<UserVo> getUserMsg(@NotNull(message = "主键不能为空") @PathVariable Long userId){
-        // TODO 感觉有问题，如果区分志愿者和服务者的话返回的主页一样吗？
         User one = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getId, userId));
         UserVo userVo = BeanUtil.copyProperties(one, UserVo.class);
         log.info("user:{}",one);

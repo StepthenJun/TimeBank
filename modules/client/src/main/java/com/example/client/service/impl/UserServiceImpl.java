@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
     @Override
+    // TODO 修改为传入账号，用户名先设置随机
     public void register(String username, String password,String phone,String code) {
         User one = getOne(new LambdaQueryWrapper<User>()
                 .eq(User::getPhonenumber, phone)

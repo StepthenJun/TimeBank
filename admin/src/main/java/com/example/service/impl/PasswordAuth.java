@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 @Service("Password" + IAuthStrategy.BASE_NAME)
 @RequiredArgsConstructor
 public class PasswordAuth implements IAuthStrategy {
-    @Autowired
-    private UserService userService;
+
+    private final UserService userService;
 
     @Override
     public LoginVo login(String body) {
@@ -28,6 +28,7 @@ public class PasswordAuth implements IAuthStrategy {
         ValidatorUtils.validate(loginBody);
         // 密码要用加密satoken自带BCrypt.hashpw(password)  BCrypt.checkpw(password, user.getPassword())
         String password = loginBody.getPassword();
+        // TODO 记得加上密码的加密 BCrypt.checkpw
         String account = loginBody.getAccount();
         // 检查用户名是否存在
         boolean usernameExists = userService.exists(new LambdaQueryWrapper<User>().eq(User::getAccount,account));
