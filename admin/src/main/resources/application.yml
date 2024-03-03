@@ -72,7 +72,6 @@ mybatis-plus:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   configuration:
     map-underscore-to-camel-case: true
-
 # security配置
 security:
   # 排除路径

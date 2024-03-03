@@ -2,6 +2,7 @@ package com.example;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -13,6 +14,9 @@ import com.example.oss.util.AliyunOSSUtil;
 import com.example.oss.util.FileService;
 import com.example.redis.util.RedisUtils;
 import com.example.sms.util.AliyunSmsUtil;
+
+
+import org.hyperledger.fabric.gateway.Gateway;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -121,6 +125,10 @@ class AdminApplicationTests {
 
         // 断言返回的文件key不为空
         assertNotNull(fileKey);
+    }
+    @Test
+    void test(){
+        Gateway gateway = SpringUtil.getBean("gateway");
     }
 
 }

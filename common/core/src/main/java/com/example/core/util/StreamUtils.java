@@ -5,7 +5,6 @@ import cn.hutool.core.map.MapUtil;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
