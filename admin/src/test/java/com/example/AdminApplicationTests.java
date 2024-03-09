@@ -2,10 +2,10 @@ package com.example;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.api.FabricApi;
 import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.api.IdCardAuth;
@@ -16,7 +16,6 @@ import com.example.redis.util.RedisUtils;
 import com.example.sms.util.AliyunSmsUtil;
 
 
-import org.hyperledger.fabric.gateway.Gateway;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,6 +41,8 @@ class AdminApplicationTests {
     private AliyunSmsUtil AliyunSmsUtil;
     @Autowired
     private FileService fileService;
+    @Autowired
+    private FabricApi fabricApi;
     @Test
     void idcardauth() {
         String cardno = "350427200408161034";
@@ -126,9 +127,6 @@ class AdminApplicationTests {
         // 断言返回的文件key不为空
         assertNotNull(fileKey);
     }
-    @Test
-    void test(){
-        Gateway gateway = SpringUtil.getBean("gateway");
-    }
+
 
 }
