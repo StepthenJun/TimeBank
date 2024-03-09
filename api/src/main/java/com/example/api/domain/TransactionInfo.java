@@ -13,6 +13,12 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class TransactionInfo {
+    /**
+     * 交易所在块号
+     */
     private  String blockNum;
+    /**
+     * 前块hash（无法获得交易所在的块hash）
+     */
     private String  previousBlockHash;
 }

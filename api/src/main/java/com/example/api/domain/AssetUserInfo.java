@@ -11,6 +11,12 @@ import lombok.Data;
  */
 @Data
 public class AssetUserInfo {
+    /**
+     * 资产ID（用户id）
+     */
     private Long assetId;
+    /**
+     * 当前用户余额
+     */
     private Integer appraisedValue;
 }

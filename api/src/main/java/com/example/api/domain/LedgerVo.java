@@ -11,9 +11,21 @@ import lombok.Data;
  */
 @Data
 public class LedgerVo {
+    /**
+     * 区块块数
+     */
     private long height;
+    /**
+     * 交易总数目
+     */
     private long transactionNum;
+    /**
+     * 当前块hash
+     */
     private String currentBlockHash;
+    /**
+     * 前块hash
+     */
     private String previousBlockHash;
 
     public LedgerVo(long height, long transactionNum, String currentBlockHash, String previousBlockHash) {

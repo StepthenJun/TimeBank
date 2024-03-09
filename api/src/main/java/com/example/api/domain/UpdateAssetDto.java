@@ -10,7 +10,16 @@ import lombok.Data;
  */
 @Data
 public class UpdateAssetDto {
+    /**
+     * 交易金额
+     */
     private int updateValue;
+    /**
+     * 资产ID（用户id）
+     */
     private String assetId;
+    /**
+     * 交易对象id
+     */
     private String fromAssetId;
 }
