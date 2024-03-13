@@ -81,6 +81,16 @@ public class Event implements Serializable {
      */
     private String defaultReason;
 
+    /**
+     * 图片url位置
+     */
+    private String imageUrl;
+
+    /**
+     * 发布时间
+     */
+    private Date publishTime;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -108,7 +118,9 @@ public class Event implements Serializable {
             && (this.getReward() == null ? other.getReward() == null : this.getReward().equals(other.getReward()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getCurentNum() == null ? other.getCurentNum() == null : this.getCurentNum().equals(other.getCurentNum()))
-            && (this.getDefaultReason() == null ? other.getDefaultReason() == null : this.getDefaultReason().equals(other.getDefaultReason()));
+            && (this.getDefaultReason() == null ? other.getDefaultReason() == null : this.getDefaultReason().equals(other.getDefaultReason()))
+            && (this.getImageUrl() == null ? other.getImageUrl() == null : this.getImageUrl().equals(other.getImageUrl()))
+            && (this.getPublishTime() == null ? other.getPublishTime() == null : this.getPublishTime().equals(other.getPublishTime()));
     }
 
     @Override
@@ -128,6 +140,8 @@ public class Event implements Serializable {
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCurentNum() == null) ? 0 : getCurentNum().hashCode());
         result = prime * result + ((getDefaultReason() == null) ? 0 : getDefaultReason().hashCode());
+        result = prime * result + ((getImageUrl() == null) ? 0 : getImageUrl().hashCode());
+        result = prime * result + ((getPublishTime() == null) ? 0 : getPublishTime().hashCode());
         return result;
     }
 
@@ -150,6 +164,8 @@ public class Event implements Serializable {
         sb.append(", createBy=").append(createBy);
         sb.append(", curentNum=").append(curentNum);
         sb.append(", defaultReason=").append(defaultReason);
+        sb.append(", imageUrl=").append(imageUrl);
+        sb.append(", publishTime=").append(publishTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -9,5 +9,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-02-19 11:41:02
 */
 public interface AccusationService extends IService<Accusation> {
-
+    String getUserNameById(Long id);
+    String getEventNameById(Long id);
 }

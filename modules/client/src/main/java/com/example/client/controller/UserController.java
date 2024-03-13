@@ -1,30 +1,34 @@
 package com.example.client.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.api.IdCardAuth;
-import com.example.client.domain.AuthIdCard;
-import com.example.client.domain.Event;
-import com.example.client.domain.User;
+import com.example.client.annotation.Notify;
+import com.example.client.domain.*;
 import com.example.client.domain.vo.EventVo;
 import com.example.client.domain.vo.UserVo;
-import com.example.client.service.AuthIdCardService;
-import com.example.client.service.EventService;
-import com.example.client.service.UserService;
+import com.example.client.service.*;
 import com.example.core.domain.R;
+import com.example.core.domain.model.accusation.AccusationBody;
 import com.example.core.domain.model.user.AuthIdCardBody;
 import com.example.core.util.ValidatorUtils;
+import com.example.oss.exception.OssException;
+import com.example.oss.util.FileService;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -43,6 +47,9 @@ public class UserController {
     private final AuthIdCardService authIdCardService;
     private final UserService userService;
     private final EventService eventService;
+    private final ParticipationsService participationsService;
+    private final AccusationService accusationService;
+    private final FileService fileService;
 
     /**
      * 用户进行实名认证
@@ -88,6 +95,11 @@ public class UserController {
     public R<UserVo> getUserMsg(@NotNull(message = "主键不能为空") @PathVariable Long userId){
         User one = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getId, userId));
         UserVo userVo = BeanUtil.copyProperties(one, UserVo.class);
+        LambdaQueryWrapper<Participations> qw = new LambdaQueryWrapper<Participations>();
+        // 状态3表示已经完成
+        qw.eq(Participations::getParticipationId,userId)
+                .eq(Participations::getStatus,3);
+        participationsService.count(qw);
         log.info("user:{}",one);
         return R.ok(userVo);
     }
@@ -108,6 +120,38 @@ public class UserController {
                 })
                 .toList();
         return R.ok(eventVos);
+    }
+
+    /**
+     * 举报
+     * @return
+     */
+    @SaCheckLogin
+    @PostMapping("/accusation/{userId}")
+    public R<Boolean> accusationUser(@PathVariable Long userId,
+                                     @RequestBody AccusationBody accusationBody){
+        ValidatorUtils.validate(accusationBody);
+
+        MultipartFile[] multipartFiles = accusationBody.getMultipartFiles();
+        String reason = accusationBody.getReason();
+        String content = accusationBody.getContent();
+
+        try {
+            // 上传所有文件并获取它们的URLs
+            List<String> fileUrls = fileService.uploadMultipleFiles(multipartFiles);
+
+            // 创建举报实例并设置其属性
+            Accusation accusation = new Accusation();
+            accusation.setContent(content);
+            accusation.setReason(reason);
+            accusation.setCreateBy(StpUtil.getLoginIdAsLong());
+//            accusation.setImageUrls(String.join(",", fileUrls)); // 将文件URLs存储为逗号分隔的字符串
+            // 保存举报信息到数据库
+            boolean saveResult = accusationService.save(accusation);
+            return saveResult ? R.ok(true) : R.fail("保存举报信息失败");
+        } catch (OssException e) {
+            return R.fail("上传文件失败：" + e.getMessage());
+        }
     }
 
 }

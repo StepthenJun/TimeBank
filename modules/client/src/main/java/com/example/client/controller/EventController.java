@@ -9,20 +9,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.client.domain.Comment;
-import com.example.client.domain.Event;
-import com.example.client.domain.Follows;
-import com.example.client.domain.User;
+import com.example.client.annotation.Notify;
+import com.example.client.domain.*;
 import com.example.client.domain.vo.EventVo;
-import com.example.client.service.CommentService;
-import com.example.client.service.EventService;
-import com.example.client.service.FollowsService;
-import com.example.client.service.UserService;
+import com.example.client.service.*;
 import com.example.core.domain.R;
 import com.example.core.domain.model.event.CommentBody;
 import com.example.core.domain.model.event.EditEventBody;
 import com.example.core.domain.model.event.PulishEventBody;
 import com.example.core.util.ValidatorUtils;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -31,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -45,6 +43,7 @@ public class EventController {
     private final UserService userService;
     private final CommentService commentService;
     private final FollowsService followsService;
+    private final ParticipationsService participationsService;
 
 
     /**
@@ -97,8 +96,8 @@ public class EventController {
      * 根据eventId查看需求的详细信息
      * @return 需求的具体信息
      */
-    @GetMapping("/detail")
-    public R<EventVo> getEventDetail(@RequestParam Long eventId){
+    @GetMapping("/detail/{eventId}")
+    public R<EventVo> getEventDetail(@PathVariable Long eventId){
         Event one = eventService.getOne(new LambdaQueryWrapper<Event>()
                 .eq(Event::getId, eventId));
         EventVo eventVo = BeanUtil.copyProperties(one, EventVo.class);
@@ -146,7 +145,6 @@ public class EventController {
     }*/
 
     /**
-     * 上传需求（应该要看是什么角色然后才能上传）
      * @return String提示信息
      */
     @PostMapping("/publish")
@@ -160,7 +158,7 @@ public class EventController {
     }
 
     /**
-     * 编辑需求（应该要看是什么角色然后才能上传）
+     * 编辑需求
      * @return String提示信息
      */
     @PostMapping("/editevent")
@@ -236,5 +234,45 @@ public class EventController {
                 return R.ok("收藏成功");
             } else return R.fail("收藏失败");
         }
+    }
+
+    /**
+     * 主页查看志愿活动
+     * 根据服务日期或者最新发布查询（最新发布根据1.距离最近 2. 招募最多 排序 3.默认最新发布）
+     * @return 查询后的发布列表
+     */
+    @PostMapping("/index/detail")
+    public R<List<EventVo>> rulesList(@RequestParam(required = false)String executionTime,
+                                @RequestParam(required = false)String publishTime,
+                                @RequestParam(required = false)Boolean query) throws ParseException {
+        List<Event> events = eventService.getEventListByRules(executionTime,publishTime,query);
+        List<EventVo> eventVos = events.stream()
+                .map(event -> {
+                    EventVo eventVo = new EventVo();
+                    BeanUtil.copyProperties(event, eventVo);
+                    return eventVo;
+                })
+                .toList();
+        return R.ok(eventVos);
+    }
+
+    /**
+     * 提交申请
+     * @param eventId
+     * @return
+     */
+    @PostMapping("/detail/{eventId}/appeal")
+    @SaCheckLogin
+    public R<Boolean> appealEvent(@PathVariable Long eventId){
+        long userId = StpUtil.getLoginIdAsLong();
+        Participations participation = new Participations();
+        participation.setEventId(eventId);
+        participation.setParticipationId(userId);
+        try {
+            participationsService.save(participation);
+        }catch (Exception e){
+            throw new RuntimeException("提交失败");
+        }
+        return R.ok(true);
     }
 }

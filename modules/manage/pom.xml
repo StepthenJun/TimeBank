@@ -11,5 +11,43 @@
     <name>manage</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>web</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>redis</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>satoken</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>client</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

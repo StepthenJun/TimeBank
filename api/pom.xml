@@ -62,6 +62,5 @@
             <artifactId>fabric-sdk-java</artifactId>
             <version>2.2.2</version>
         </dependency>
-
     </dependencies>
 </project>

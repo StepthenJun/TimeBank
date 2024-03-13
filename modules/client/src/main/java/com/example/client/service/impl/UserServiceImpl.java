@@ -7,6 +7,7 @@ import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.client.mapper.UserMapper;
 import com.example.core.constant.Captcha;
+import com.example.core.constant.GlobalConstant;
 import com.example.core.enums.UserStatus;
 import com.example.core.exception.UserException;
 import com.example.redis.util.RedisUtils;
@@ -40,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         newsuser.setPassword(password);
         newsuser.setPhonenumber(password);
         newsuser.setUserName(username);
+        newsuser.setAvatar(GlobalConstant.DEFAULT_AVATAR);
         try {
             save(newsuser);
         }catch (UserException e){

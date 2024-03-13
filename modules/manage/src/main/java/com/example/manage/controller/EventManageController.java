@@ -1,21 +1,24 @@
-package com.example.client.controller;
+package com.example.manage.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.example.client.annotation.Notify;
+import com.example.client.domain.Accusation;
 import com.example.client.domain.Event;
 import com.example.client.domain.Participations;
 import com.example.client.domain.vo.UserVo;
+import com.example.client.service.AccusationService;
 import com.example.client.service.EventService;
 import com.example.client.service.ParticipationsService;
 import com.example.core.domain.R;
+import com.example.core.domain.model.audit.ApprovalBody;
 import com.example.core.domain.model.event.AuditBody;
 import com.example.core.enums.EventStatus;
 import com.example.core.exception.EventException;
 import com.example.core.util.ValidatorUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,17 +30,19 @@ import java.util.List;
 @RestController
 @SaIgnore
 @RequestMapping("/eventmanage")
+// TODO 权限管理
 public class EventManageController {
 
     private final EventService eventService;
     private final ParticipationsService participationsService;
+    private final AccusationService accusationService;
 
     /**
      * 返回所有需求列表 审核和未审核的一并交给前端分开展示
      * @return 审核的列表
      */
     // TODO 分页查询
-    @GetMapping("/eventlist")
+    @GetMapping("/eventList")
     public R<List<Event>> getEventList(){
         List<Event> list = eventService.list();
         return R.ok(list);
@@ -48,7 +53,7 @@ public class EventManageController {
      *  根据需求id对需求进行审核
      * @return 提示信息就好了
      */
-    @PostMapping("/auditevent")
+    @PostMapping("/auditEvent")
     public R<String> auditEvent(@Validated @RequestBody AuditBody auditBody) {
         ValidatorUtils.validate(auditBody);
         String auditManager = auditBody.getAuditManager();
@@ -82,21 +87,43 @@ public class EventManageController {
      * 查看参加的人
      * @return 返回申请者的列表
      */
-    // TODO 查看参与者的信息需要哪些不确定
-    @GetMapping("/participationbyevent")
+    @GetMapping("/participationsByEvent")
     public R<List<Participations>> getparticipationByeventId(@RequestParam Long eventid){
         participationsService.list(new LambdaQueryWrapper<Participations>()
                 .eq(Participations::getEventId,eventid));
         return null;
     }
 
-
     /**
      * 对参与者进行审核
      * @return 提示信息
      */
-    @PostMapping("/auditparticipation")
-    public R<String> auditparticipation(@RequestBody List<UserVo> user){
-        return R.ok();
+    @PostMapping("/auditParticipation")
+    public R<String> auditParticipation(@RequestBody ApprovalBody approvalBody){
+        LambdaUpdateWrapper<Participations> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.in(Participations::getId, approvalBody.getIdList())
+                .set(Participations::getStatus, approvalBody.getStatus());
+        boolean updateResult = participationsService.update(updateWrapper);
+        if (updateResult) {
+            return R.ok("更新成功");
+        } else {
+            return R.fail("更新失败");
+        }
+    }
+
+    /**
+     * 对举报信息进行审核
+     */
+    @PostMapping("/auditAccusation")
+    public R<String> auditAccusation(@RequestBody ApprovalBody approvalBody){
+        LambdaUpdateWrapper<Accusation> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.in(Accusation::getId, approvalBody.getIdList())
+                .set(Accusation::getStatus, approvalBody.getStatus());
+        boolean updateResult = accusationService.update(updateWrapper);
+        if (updateResult) {
+            return R.ok("更新成功");
+        } else {
+            return R.fail("更新失败");
+        }
     }
 }

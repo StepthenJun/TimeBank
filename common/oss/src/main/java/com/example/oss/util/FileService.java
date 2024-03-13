@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,5 +48,27 @@ public class FileService {
             // 关闭OSS客户端
             ossClient.shutdown();
         }
+    }
+
+    public List<String> uploadMultipleFiles(MultipartFile[] files) {
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        List<String> fileUrls = new ArrayList<>();
+
+        try {
+            for (MultipartFile file : files) {
+                if (file != null && !file.isEmpty()) {
+                    String originalFilename = file.getOriginalFilename();
+                    String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                    String fileName = UUID.randomUUID() + extension;
+                    ossClient.putObject(bucketName, fileName, file.getInputStream());
+                    fileUrls.add("https://" + bucketName + "." + endpoint + "/" + fileName);
+                }
+            }
+        } catch (IOException e) {
+            throw new OssException("文件上传失败");
+        } finally {
+            ossClient.shutdown();
+        }
+        return fileUrls;
     }
 }

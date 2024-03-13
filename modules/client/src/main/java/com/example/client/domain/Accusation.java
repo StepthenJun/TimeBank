@@ -28,17 +28,27 @@ public class Accusation implements Serializable {
     /**
      * 创建者id
      */
-    private Integer createBy;
+    private Long createBy;
 
     /**
      * 举报对象id（需求或者是志愿者）
      */
-    private Integer createTo;
+    private Long createTo;
 
     /**
      * 状态（未审核0，已审核1）
      */
     private String status;
+
+    /**
+     * 原因
+     */
+    private String reason;
+
+    /**
+     * 图片地址
+     */
+    private String imageUrl;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -59,7 +69,9 @@ public class Accusation implements Serializable {
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
             && (this.getCreateTo() == null ? other.getCreateTo() == null : this.getCreateTo().equals(other.getCreateTo()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+            && (this.getReason() == null ? other.getReason() == null : this.getReason().equals(other.getReason()))
+            && (this.getImageUrl() == null ? other.getImageUrl() == null : this.getImageUrl().equals(other.getImageUrl()));
     }
 
     @Override
@@ -71,6 +83,8 @@ public class Accusation implements Serializable {
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
         result = prime * result + ((getCreateTo() == null) ? 0 : getCreateTo().hashCode());
         result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
+        result = prime * result + ((getReason() == null) ? 0 : getReason().hashCode());
+        result = prime * result + ((getImageUrl() == null) ? 0 : getImageUrl().hashCode());
         return result;
     }
 
@@ -85,6 +99,8 @@ public class Accusation implements Serializable {
         sb.append(", createBy=").append(createBy);
         sb.append(", createTo=").append(createTo);
         sb.append(", status=").append(status);
+        sb.append(", reason=").append(reason);
+        sb.append(", imageUrl=").append(imageUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

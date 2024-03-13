@@ -45,5 +45,10 @@
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>oss</artifactId>
+      <version>1.0</version>
+    </dependency>
   </dependencies>
 </project>

@@ -39,4 +39,13 @@ public class UserVo {
      */
     private String phonenumber;
 
+    /**
+     * 时间币
+     */
+    private Long timeCoins;
+
+    /**
+     * 志愿次数
+     */
+    private Integer volunteerNum;
 }

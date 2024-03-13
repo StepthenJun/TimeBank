@@ -7,13 +7,16 @@
     <resultMap id="BaseResultMap" type="com.example.client.domain.Accusation">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
-            <result property="createBy" column="create_by" jdbcType="INTEGER"/>
-            <result property="createTo" column="create_to" jdbcType="INTEGER"/>
+            <result property="createBy" column="create_by" jdbcType="BIGINT"/>
+            <result property="createTo" column="create_to" jdbcType="BIGINT"/>
             <result property="status" column="status" jdbcType="CHAR"/>
+            <result property="reason" column="reason" jdbcType="VARCHAR"/>
+            <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         id,content,create_by,
-        create_to,status
+        create_to,status,reason,
+        image_url
     </sql>
 </mapper>

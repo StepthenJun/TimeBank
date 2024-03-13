@@ -18,6 +18,8 @@
             <result property="createBy" column="create_by" jdbcType="BIGINT"/>
             <result property="curentNum" column="curent_num" jdbcType="INTEGER"/>
             <result property="defaultReason" column="default_reason" jdbcType="VARCHAR"/>
+            <result property="imageUrl" column="image_url" jdbcType="VARCHAR"/>
+            <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -25,6 +27,6 @@
         need_num,create_time,execution_time,
         address,status,del_flag,
         reward,create_by,curent_num,
-        default_reason
+        default_reason,image_url,publish_time
     </sql>
 </mapper>
