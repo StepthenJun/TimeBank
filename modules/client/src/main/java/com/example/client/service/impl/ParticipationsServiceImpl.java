@@ -26,10 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ParticipationsServiceImpl extends ServiceImpl<ParticipationsMapper, Participations>
     implements ParticipationsService{
-
     private final NotificationService notificationService;
     private final UserService userService;
-
     @Transactional
     public Boolean auditParticipation(List<Long> idList, Integer status) {
         LambdaUpdateWrapper<Participations> updateWrapper = new LambdaUpdateWrapper<>();

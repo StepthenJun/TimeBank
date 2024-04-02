@@ -3,6 +3,7 @@ package com.example.client.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.api.FabricApi;
 import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.client.mapper.UserMapper;
@@ -11,6 +12,7 @@ import com.example.core.constant.GlobalConstant;
 import com.example.core.enums.UserStatus;
 import com.example.core.exception.UserException;
 import com.example.redis.util.RedisUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,6 +23,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     implements UserService{
+    @Autowired
+    private FabricApi fabricApi;
     @Override
     // TODO 修改为传入账号，用户名先设置随机
     public void register(String username, String password,String phone,String code) {
@@ -44,7 +48,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         newsuser.setAvatar(GlobalConstant.DEFAULT_AVATAR);
         try {
             save(newsuser);
-        }catch (UserException e){
+            //创立资产
+            fabricApi.createAsset(newsuser.getId());
+        }catch (Exception e){
             throw new UserException("保存失败");
         }
     }

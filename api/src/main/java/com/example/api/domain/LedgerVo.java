@@ -1,7 +1,5 @@
 package com.example.api.domain;
-
 import lombok.Data;
-
 /**
  * @program: ledger
  * @ClassName: LedgerVo
@@ -33,5 +31,7 @@ public class LedgerVo {
         this.transactionNum = transactionNum;
         this.currentBlockHash = currentBlockHash;
         this.previousBlockHash = previousBlockHash;
+
     }
+
 }

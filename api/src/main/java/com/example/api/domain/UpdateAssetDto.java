@@ -1,4 +1,5 @@
 package com.example.api.domain;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @create: 2024-02-21 20:06
  */
 @Data
+@AllArgsConstructor
 public class UpdateAssetDto {
     /**
      * 交易金额

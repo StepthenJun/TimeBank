@@ -5,6 +5,7 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.example.api.FabricApi;
 import com.example.client.service.UserService;
 import com.example.core.domain.model.user.RegisterBody;
 import com.example.domain.LoginVo;
@@ -83,7 +84,6 @@ public class LoginController {
         password = BCrypt.hashpw(password);
         String code = registerBody.getCode();
         userService.register(username,password,phone,code);
-
         return R.ok();
     }
     // 找回密码

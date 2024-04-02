@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
-
 /**
  * @program: TimeBank
  * @ClassName: FabricApi
@@ -42,6 +41,13 @@ public class FabricApi {
         Contract contract = getContract();
         byte[] asset = contract.submitTransaction("InitLedger");
         return true;
+    }
+    public AssetUserInfo transferAsset(Long userId,Long fromUserId,Integer value) throws InterruptedException, TimeoutException, ContractException {
+        UpdateAssetDto dto1 =new UpdateAssetDto(value,String.valueOf(userId),String.valueOf(fromUserId));
+        UpdateAssetDto dto2 =new UpdateAssetDto(0-value,String.valueOf(fromUserId),String.valueOf(userId));
+        AssetUserInfo assetUserInfo = updateAsset(dto1);
+        AssetUserInfo assetUserInfo1 = updateAsset(dto2);
+        return assetUserInfo;
     }
     /**
      * @Description: 创建资产，注册时即可调用

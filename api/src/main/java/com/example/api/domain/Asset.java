@@ -1,8 +1,6 @@
 package com.example.api.domain;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 /**
  * @program: TimeBank
  * @ClassName: Asset
