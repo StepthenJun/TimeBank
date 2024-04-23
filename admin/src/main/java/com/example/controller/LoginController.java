@@ -37,8 +37,6 @@ public class LoginController {
 
     private final UserService userService;
     private final AliyunSmsUtil AliyunSmsUtil;
-
-
     // 发送短信验证码的接口
     @GetMapping("/sms/code")
     public R<String> smsCode(@NotBlank(message = "手机号不能为空") String phonenumber) throws Exception {
@@ -84,6 +82,7 @@ public class LoginController {
         password = BCrypt.hashpw(password);
         String code = registerBody.getCode();
         userService.register(username,password,phone,code);
+
         return R.ok();
     }
     // 找回密码

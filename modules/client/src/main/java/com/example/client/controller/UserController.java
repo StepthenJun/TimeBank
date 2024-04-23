@@ -1,5 +1,4 @@
 package com.example.client.controller;
-
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.StpUtil;
@@ -18,6 +17,7 @@ import com.example.client.service.*;
 import com.example.core.domain.R;
 import com.example.core.domain.model.accusation.AccusationBody;
 import com.example.core.domain.model.user.AuthIdCardBody;
+import com.example.core.domain.model.user.UpdateInfoBody;
 import com.example.core.util.ValidatorUtils;
 import com.example.oss.exception.OssException;
 import com.example.oss.util.FileService;
@@ -32,9 +32,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 @Slf4j
 @Validated
 @RequiredArgsConstructor
@@ -49,6 +49,7 @@ public class UserController {
     private final ParticipationsService participationsService;
     private final AccusationService accusationService;
     private final FileService fileService;
+    private final CourseService courseService;
     /**
      * 用户进行实名认证
      * @return String 提示信息
@@ -97,6 +98,20 @@ public class UserController {
         log.info("user:{}",one);
         return R.ok(userVo);
     }
+    /**
+     * @Description:个人信息更新
+     * @param updateInfoBody
+     * @return: com.example.core.domain.R
+     * @Author: kai
+     * @Date 2024/4/23 21:09
+     */
+    @PutMapping("/update")
+    public R updateUserInfo(@RequestBody UpdateInfoBody updateInfoBody){
+        User user = new User((Long) StpUtil.getLoginId());
+        BeanUtil.copyProperties(updateInfoBody, user);
+        userService.updateById(user);
+        return R.ok("更改成功");
+    }
 
     /**
      * 用户查看自己发布的需求
@@ -115,7 +130,17 @@ public class UserController {
                 .toList();
         return R.ok(eventVos);
     }
-
+    /**
+     * @Description:查看发布的培训视频
+     */
+    @GetMapping("/getCourses")
+    public R<List<Course>> getCourses(){
+        LambdaQueryWrapper<Course> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Course::getCreateBy, StpUtil.getLoginId())
+                .eq(Course::getDelFlag,0)
+                .eq(Course::getStatus,1);
+        return R.ok(courseService.list(queryWrapper));
+    }
     /**
      * 举报
      * @return
@@ -125,15 +150,12 @@ public class UserController {
     public R<Boolean> accusationUser(@PathVariable Long userId,
                                      @RequestBody AccusationBody accusationBody){
         ValidatorUtils.validate(accusationBody);
-
         MultipartFile[] multipartFiles = accusationBody.getMultipartFiles();
         String reason = accusationBody.getReason();
         String content = accusationBody.getContent();
-
         try {
             // 上传所有文件并获取它们的URLs
             List<String> fileUrls = fileService.uploadMultipleFiles(multipartFiles);
-
             // 创建举报实例并设置其属性
             Accusation accusation = new Accusation();
             accusation.setContent(content);
@@ -147,5 +169,41 @@ public class UserController {
             return R.fail("上传文件失败：" + e.getMessage());
         }
     }
+    /**
+     * @Description:用户列表
+     * @param
+     * @return: com.example.core.domain.R<java.util.List<com.example.client.domain.vo.UserVo>>
+     * @Author: kai
+     * @Date 2024/4/23 21:08
+     */
+    @GetMapping("/list")
+    public R<List<UserVo>> listUser(){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getStatus,0)
+                .eq(User::getDelFlag,0)
+                .orderByDesc(User::getUserName);
+        List<User> users = userService.list(queryWrapper);
+        List<UserVo> userVos = users.stream()
+                .map(user -> {
+                    UserVo userVo = new UserVo();
+                    BeanUtil.copyProperties(user, userVo);
+                    return userVo;
+                })
+                .toList();
+        return R.ok(userVos);
+    }
+    /**
+     * 用户查询
+     */
+    @GetMapping("/search")
+    public R<User> searchUser(@RequestParam String userName){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getStatus,0)
+                .eq(User::getDelFlag,0)
+                .like(User::getUserName,userName);
+        User user = userService.getOne(queryWrapper);
+        return R.ok(user);
+    }
+
 
 }

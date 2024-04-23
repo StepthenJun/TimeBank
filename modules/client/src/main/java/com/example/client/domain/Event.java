@@ -93,6 +93,14 @@ public class Event implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+    public Event(Long id, String name, String description, Integer needNum, Date publishTime,String status) {
+        this.status=status;
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.needNum = needNum;
+        this.publishTime = publishTime;
+    }
 
     @Override
     public boolean equals(Object that) {

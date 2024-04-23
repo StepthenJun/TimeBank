@@ -6,14 +6,25 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 
  * @TableName accusation
  */
 @TableName(value ="accusation")
+@NoArgsConstructor
 @Data
 public class Accusation implements Serializable {
+    public Accusation(Long id, String content, Long createBy, Long createTo, String status, String reason) {
+        this.id = id;
+        this.content = content;
+        this.createBy = createBy;
+        this.createTo = createTo;
+        this.status = status;
+        this.reason = reason;
+    }
+
     /**
      * 举报id
      */

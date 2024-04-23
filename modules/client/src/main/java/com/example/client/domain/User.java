@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * 用户表
  * @TableName user
  */
 @TableName(value ="user")
 @Data
+@NoArgsConstructor
 public class User implements Serializable {
     /**
      * 主键
@@ -19,10 +22,22 @@ public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 
+    public User(Long id) {
+        this.id = id;
+    }
+
     /**
      * 用户名
      */
     private String userName;
+
+    public User(Long id, String userName, String status, Integer score, Date volunteerHours) {
+        this.id = id;
+        this.userName = userName;
+        this.status = status;
+        this.score = score;
+        this.volunteerHours = volunteerHours;
+    }
 
     /**
      * 密码

@@ -37,6 +37,8 @@ spring:
     username: root
     password: 20040816Ywj
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 60000
 
 fabric:
   networkConnectionConfigPath: admin/src/main/resources/connection.json

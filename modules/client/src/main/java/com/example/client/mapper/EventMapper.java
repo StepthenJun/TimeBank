@@ -3,7 +3,6 @@ package com.example.client.mapper;
 import com.example.client.domain.Event;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-import org.mybatis.spring.annotation.MapperScan;
 
 /**
 * @author 86187

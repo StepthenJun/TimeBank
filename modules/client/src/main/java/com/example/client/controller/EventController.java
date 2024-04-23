@@ -90,7 +90,6 @@ public class EventController {
                 .toList();
         return R.ok(eventVos);
     }
-
     /**
      * 根据eventId查看需求的详细信息
      * @return 需求的具体信息
@@ -102,7 +101,6 @@ public class EventController {
         EventVo eventVo = BeanUtil.copyProperties(one, EventVo.class);
         return R.ok(eventVo);
     }
-
     /**
      * 发布留言
      * @return 提示信息
@@ -142,7 +140,6 @@ public class EventController {
         }
         return R.fail("回复失败");
     }*/
-
     /**
      * @return String提示信息
      */
@@ -155,7 +152,6 @@ public class EventController {
             return R.ok("上传成功");
         return R.fail("上传失败: 系统异常");
     }
-
     /**
      * 编辑需求
      * @return String提示信息

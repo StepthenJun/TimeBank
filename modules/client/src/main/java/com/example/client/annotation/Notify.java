@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Notify {
     String title() default "通知";
-    String contentTemplate() default ""; // 使用模板而不是直接内容
-    String type() default "";
+  //  String contentTemplate() default ""; // 使用模板而不是直接内容
+    String type() default "举报";
 }

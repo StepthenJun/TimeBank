@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode
@@ -16,19 +17,19 @@ public class AuditBody implements Serializable {
     /**
      * 需求id
      */
-    @NotBlank(message = "主键不能为空")
-    private Long id;
+
+    private List<Long> idList;
 
     /**
      * 审核人
      */
-    private String auditManager;
+//    private String auditManager;
 
     /**
      * 是否通过
      */
-    @NotBlank(message = "主键不能为空")
-    private Boolean ifPass;
+
+    private Integer status;
 
     /**
      * 失败原因
