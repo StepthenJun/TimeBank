@@ -43,16 +43,19 @@ import java.util.List;
 @RequestMapping("/user")
 // TODO @SaIgnore要删去
 public class UserController {
+
     private final AuthIdCardService authIdCardService;
     private final UserService userService;
     private final EventService eventService;
     private final ParticipationsService participationsService;
     private final AccusationService accusationService;
     private final FileService fileService;
+
     /**
      * 用户进行实名认证
      * @return String 提示信息
      */
+
     @PostMapping("/authIdCard")
     public R<String> authIdCard(@Validated @RequestBody AuthIdCardBody authBody){
         ValidatorUtils.validate(authBody);
@@ -61,6 +64,7 @@ public class UserController {
         String responseString = IdCardAuth.AuthIdCard(idNumber, realName);
         // 使用Fastjson解析JSON响应
         JSONObject jsonObj = JSON.parseObject(responseString);
+
         // 提取 'isok' 和 'birthday' 字段
         boolean isOk = jsonObj.getJSONObject("result").getBoolean("isok");
         AuthIdCard authIdCard = BeanUtil.copyProperties(authBody, AuthIdCard.class);
@@ -68,10 +72,10 @@ public class UserController {
             // TODO 给用户的信息加个出生日期字段
             String birthDateStr = idNumber.substring(6, 14); // 提取出生年月日部分
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
-            try{
+            try {
                 Date birthDate = dateFormat.parse(birthDateStr);
                 System.out.println(birthDate);
-            }catch (ParseException e) {
+            } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
             authIdCardService.save(authIdCard);
@@ -81,6 +85,8 @@ public class UserController {
         }
         return isOk ? R.ok("实名认证成功") : R.fail("实名认证失败");
     }
+
+
     /**
      * 主页获取用户信息
      * @return UserVo 用户可显信息
