@@ -36,6 +36,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/event")
 @SaIgnore
+// TODO 培训视频
 public class EventController {
 
     private final EventService eventService;
@@ -49,7 +50,7 @@ public class EventController {
      * 返回需求列表，应该是放在主页访问
      * @return 返回所有需求列表
      */
-    // TODO 分页查询
+    // TODO 图片上传
     @GetMapping("/index")
     public R<IPage<EventVo>> eventlist(@RequestParam(defaultValue = "1") Long current,
                                        @RequestParam(defaultValue = "8") Long size) {
@@ -180,9 +181,10 @@ public class EventController {
             if (eventToUpdate == null) {
                 return R.fail("上传失败: 需求不存在");
             }
-
             // 使用BeanUtils复制属性，排除不需要更新的字段
-            String[] ignoreProperties = {"eventId", "createTime", "status", "delFlag", "createBy", "curentNum", "defaultReason"};
+            String[] ignoreProperties = {
+                    "eventId", "createTime", "status", "delFlag",
+                    "createBy", "curentNum", "defaultReason"};
             BeanUtils.copyProperties(editEventBody, eventToUpdate, ignoreProperties);
 
             eventService.updateById(eventToUpdate);
