@@ -5,7 +5,6 @@ import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
-import com.example.api.FabricApi;
 import com.example.client.service.UserService;
 import com.example.core.domain.model.user.RegisterBody;
 import com.example.domain.LoginVo;
@@ -20,7 +19,6 @@ import com.example.core.util.JsonUtils;
 import com.example.core.util.ValidatorUtils;
 import com.example.redis.util.RedisUtils;
 import com.example.sms.util.AliyunSmsUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

@@ -5,7 +5,6 @@ import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.api.FabricApi;
 import com.example.client.domain.User;
 import com.example.client.service.UserService;
 import com.example.api.IdCardAuth;
