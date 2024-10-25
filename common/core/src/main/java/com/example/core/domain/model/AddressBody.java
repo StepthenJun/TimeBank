@@ -1,12 +1,12 @@
 package com.example.core.domain.model;
 
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-
 @Data
 public class AddressBody implements Serializable {
     @Serial

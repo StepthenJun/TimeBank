@@ -1,9 +1,5 @@
 package com.example.service.impl;
-
 import cn.dev33.satoken.stp.StpUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.client.domain.User;
-import com.example.client.service.UserService;
 import com.example.core.exception.UserException;
 import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
@@ -12,16 +8,12 @@ import com.example.core.util.JsonUtils;
 import com.example.core.util.ValidatorUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 @Slf4j
 @Service("Password" + IAuthStrategy.BASE_NAME)
 @RequiredArgsConstructor
 public class PasswordAuth implements IAuthStrategy {
-
     private final UserService userService;
-
     @Override
     public LoginVo login(String body) {
         PasswordLoginBody loginBody = JsonUtils.parseObject(body, PasswordLoginBody.class);
