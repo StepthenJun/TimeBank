@@ -180,6 +180,8 @@
     <module>modules</module>
     <module>admin</module>
     <module>api</module>
+      <module>clints</module>
+    <module>clients</module>
   </modules>
   <build>
     <plugins>

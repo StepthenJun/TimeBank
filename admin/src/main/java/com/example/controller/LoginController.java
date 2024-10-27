@@ -5,7 +5,7 @@
 //import cn.dev33.satoken.secure.BCrypt;
 //import cn.dev33.satoken.stp.StpUtil;
 //import cn.hutool.core.util.RandomUtil;
-//import com.example.client.service.UserService;
+//import client.service.UserService;
 //import com.example.core.domain.model.user.RegisterBody;
 //import com.example.core.service.UserService;
 //import com.example.domain.LoginVo;

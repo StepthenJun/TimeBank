@@ -16,8 +16,10 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/clints/pom.xml" />
         <option value="$PROJECT_DIR$/common/idauth/pom.xml" />
         <option value="$PROJECT_DIR$/common/untitled/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/pom.xml" />
         <option value="$PROJECT_DIR$/modules/system/pom.xml" />
       </set>
     </option>

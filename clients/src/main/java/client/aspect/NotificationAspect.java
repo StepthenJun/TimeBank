@@ -1,7 +1,7 @@
-//package com.example.client.aspect;
-//import com.example.client.annotation.Notify;
-//import com.example.client.domain.Event;
-//import com.example.client.service.*;
+//package client.aspect;
+//import client.annotation.Notify;
+//import client.domain.Event;
+//import client.service.*;
 //import com.example.core.domain.R;
 //import com.example.core.domain.model.audit.ApprovalBody;
 //import com.example.core.domain.model.event.AuditBody;
