@@ -1,7 +1,6 @@
 package com.example.core.domain.pojos;
 
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,7 @@ public class Communities  {
     //社区名称
     private String communityName;
     //社区类型，未详细说明具体类型
-    private Integer type;
+    private Integer tagId;
     //社区描述
     private String description;
 

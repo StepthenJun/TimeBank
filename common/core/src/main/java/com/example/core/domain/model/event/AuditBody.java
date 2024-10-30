@@ -1,6 +1,5 @@
 package com.example.core.domain.model.event;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

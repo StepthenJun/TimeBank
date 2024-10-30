@@ -2,11 +2,10 @@ package com.example.core.domain.pojos;
 
 import java.util.Date;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 /**
  * 存储通知详细信息，包括定时发送功能(Notifications)表实体类
  *

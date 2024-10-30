@@ -8,15 +8,21 @@
     <file url="file://$PROJECT_DIR$/admin/src/main/resources/application.yml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/api/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/clients" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clients/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/clients/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/clints" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/core/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/oss" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/oss/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/oss/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/redis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/redis/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/satoken" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/satoken/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/satoken/src/main/resources" charset="UTF-8" />
@@ -25,11 +31,17 @@
     <file url="file://$PROJECT_DIR$/common/security/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/sms" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/sms/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sms/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/web" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common/web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/web/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/client" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/modules/manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

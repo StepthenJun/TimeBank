@@ -65,16 +65,6 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>client</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>manage</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
             <artifactId>security</artifactId>
             <version>1.0</version>
         </dependency>

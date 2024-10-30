@@ -2,7 +2,6 @@ package com.example.core.domain.pojos;
 
 import java.util.Date;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +27,10 @@ public class CommentLikes  {
     //点赞时间
     private Date likeTime;
 
-
-
+    public CommentLikes(Integer commentId, Integer userId, Date likeTime) {
+        this.commentId = commentId;
+        this.userId = userId;
+        this.likeTime = likeTime;
+    }
 }
 

@@ -1,7 +1,6 @@
 package com.example.core.domain.pojos;
 
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +25,9 @@ public class UserCommunities  {
     private Integer communityId;
 
 
-
+    public UserCommunities(Integer userId, Integer communityId) {
+        this.userId = userId;
+        this.communityId = communityId;
+    }
 }
 
