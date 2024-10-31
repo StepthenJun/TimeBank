@@ -1,6 +1,7 @@
 package com.example.client.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.client.model.vo.UserVo;
 import com.example.core.domain.pojos.User;
 
 
@@ -12,4 +13,5 @@ import com.example.core.domain.pojos.User;
  */
 public interface UserService extends IService<User> {
 
+  UserVo getUserInfo(long userId);
 }

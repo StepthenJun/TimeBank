@@ -31,10 +31,10 @@ public class CommunityController{
     private CommunitiesService communitiesService;
     @Autowired
     private UserCommunitiesService umService;
-    @Autowired
-    private CommunitiesService communitiesService;
+
     @Autowired
     private UserService userService;
+
     @GetMapping("/show")
     public R<List<Communities>> showCommunities(@RequestParam Integer tagId){
         LambdaQueryWrapper<Communities> queryWrapper = new LambdaQueryWrapper<>();
@@ -82,6 +82,7 @@ public class CommunityController{
 
     @GetMapping("/otherRank")
     public R<List<UserDetailVo>> getUserRankList(@RequestParam Long tagId){
+        
         return R.ok(new ArrayList<>());
     }
 

@@ -1,9 +1,12 @@
 package com.example.client.service.impl;
 
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.client.domain.ChatHistory;
 import com.example.client.service.ChatHistoryService;
 import com.example.client.mapper.ChatHistoryMapper;
+import java.util.List;
+import kotlin.jvm.internal.Lambda;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +18,12 @@ import org.springframework.stereotype.Service;
 public class ChatHistoryServiceImpl extends ServiceImpl<ChatHistoryMapper, ChatHistory>
     implements ChatHistoryService{
 
+  @Override
+  public List<ChatHistory> getMessageList(Long senderId, Long receiverId) {
+    return list(lambdaQuery().eq(ChatHistory::getSenderId,senderId)
+        .or()
+        .eq(ChatHistory::getReceiverId,receiverId));
+  }
 }
 
 

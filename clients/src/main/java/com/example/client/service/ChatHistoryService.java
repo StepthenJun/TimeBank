@@ -2,6 +2,7 @@ package com.example.client.service;
 
 import com.example.client.domain.ChatHistory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
 
 /**
 * @author 86187
@@ -10,4 +11,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface ChatHistoryService extends IService<ChatHistory> {
 
+  List<ChatHistory> getMessageList(Long senderId, Long receiverId);
 }
