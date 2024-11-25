@@ -7,14 +7,15 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.RandomUtil;
 import com.example.client.service.UserService;
 import com.example.core.domain.model.user.RegisterBody;
+import com.example.domain.LoginBody;
 import com.example.domain.LoginVo;
 import com.example.service.IAuthStrategy;
+import com.example.service.impl.PasswordAuth;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.example.core.constant.Captcha;
 import com.example.core.domain.R;
-import com.example.core.domain.model.user.LoginBody;
 import com.example.core.util.JsonUtils;
 import com.example.core.util.ValidatorUtils;
 import com.example.redis.util.RedisUtils;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 @RequestMapping("/auth")
 public class LoginController {
 
-    private final UserService userService;
+    private PasswordAuth passwordAuth;
     private final AliyunSmsUtil AliyunSmsUtil;
     // 发送短信验证码的接口
     @GetMapping("/sms/code")
@@ -57,29 +58,25 @@ public class LoginController {
 
     // 登录界面
     @PostMapping("/login")
-    public R<LoginVo> login(@Validated @RequestBody String body) throws Exception {
-        // 转为loginbody查找登入类型
-        LoginBody loginBody = JsonUtils.parseObject(body, LoginBody.class);
+    public R<LoginVo> login(@Validated @RequestBody LoginBody body) throws Exception {
         // 校验传参
-        ValidatorUtils.validate(loginBody);
-        // 获取登录类型后选择不同登录方法
-        String grantType = loginBody.getGrantType();
-        LoginVo login = IAuthStrategy.login(body, grantType);
+        ValidatorUtils.validate(body);
+        LoginVo login = passwordAuth.login(body);
         return R.ok(login);
     }
 
     // 注册
     @PostMapping("/register")
     public R<String> register(@Validated @RequestBody RegisterBody registerBody) {
-        // 校验传参
-        ValidatorUtils.validate(registerBody);
-        String phone = registerBody.getPhone();
-        String username = registerBody.getUsername();
-        String password = registerBody.getPassword();
-        // 使用工具类对密码进行加密
-        password = BCrypt.hashpw(password);
-        String code = registerBody.getCode();
-        userService.register(username,password,phone,code);
+//        // 校验传参
+//        ValidatorUtils.validate(registerBody);
+//        String phone = registerBody.getPhone();
+//        String username = registerBody.getUsername();
+//        String password = registerBody.getPassword();
+//        // 使用工具类对密码进行加密
+//        password = BCrypt.hashpw(password);
+//        String code = registerBody.getCode();
+//        userService.register(username,password,phone,code);
 
         return R.ok();
     }
