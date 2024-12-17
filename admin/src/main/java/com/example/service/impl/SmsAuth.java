@@ -1,3 +1,4 @@
+/*
 package com.example.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
@@ -37,7 +38,7 @@ public class SmsAuth implements IAuthStrategy {
         User user = loadUserByPhonenumber(phone);
         boolean b = validateSmsCode(phone, code);
         if (b){
-            Long id = user.getId();
+            Integer id = user.getId();
             StpUtil.login(id);
             String tokenValueByLoginId = StpUtil.getTokenValueByLoginId(id);
             return new LoginVo(tokenValueByLoginId);
@@ -45,9 +46,11 @@ public class SmsAuth implements IAuthStrategy {
         return LoginVo.withError("错误","验证码错误");
     }
 
-    /**
+    */
+/**
      * 校验短信验证码
-     */
+     *//*
+
     private boolean validateSmsCode(String phonenumber, String smsCode) {
         // 存入缓存也用这个Captcha.CAPTCHA_CODE_KEY + phonenumber作为key
         // TODO 如果随机填写验证码还没发送 会抛出异常 这里需要捕获一下
@@ -69,3 +72,4 @@ public class SmsAuth implements IAuthStrategy {
         return one;
     }
 }
+*/

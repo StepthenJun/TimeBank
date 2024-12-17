@@ -146,6 +146,12 @@
         <version>${fastjson.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>com.github.yulichang</groupId>
+        <artifactId>mybatis-plus-join-boot-starter</artifactId>
+        <version>1.4.13</version>
+      </dependency>
+
     </dependencies>
 
   </dependencyManagement>

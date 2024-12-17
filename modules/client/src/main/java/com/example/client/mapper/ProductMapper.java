@@ -1,6 +1,7 @@
 package com.example.client.mapper;
 
 import com.example.client.domain.Product;
+
 import com.github.yulichang.base.MPJBaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

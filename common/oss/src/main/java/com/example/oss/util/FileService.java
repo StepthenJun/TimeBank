@@ -71,4 +71,23 @@ public class FileService {
         }
         return fileUrls;
     }
+
+    public void deleteFile(String fileUrl) {
+        // 提取文件名称（假设 fileUrl 格式为 https://bucketName.endpoint/fileName）
+        String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+
+        // 创建OSS客户端
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        try {
+            // 删除文件
+            ossClient.deleteObject(bucketName, fileName);
+            System.out.println("文件已删除：" + fileName);
+        } catch (Exception e) {
+            throw new OssException("删除文件失败：" + e.getMessage());
+        } finally {
+            // 关闭OSS客户端
+            ossClient.shutdown();
+        }
+    }
+
 }

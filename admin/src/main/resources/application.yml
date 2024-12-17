@@ -18,7 +18,7 @@ spring:
       fail_on_unknown_properties: false
 # 开发环境配置
 server:
-  port: 9003
+  port: 8081
   servlet:
     # 应用的访问路径
     context-path: /

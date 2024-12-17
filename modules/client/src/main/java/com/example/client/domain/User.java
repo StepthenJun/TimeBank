@@ -17,28 +17,32 @@ public class User implements Serializable {
     /**
      * 
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
      * 
      */
+    @TableField(value = "phone_num")
     private String phoneNum;
 
     /**
      * 
      */
+    @TableField(value = "password")
     private String password;
 
     /**
      * 
      */
+    @TableField(value = "user_name")
     private String userName;
 
     /**
      * 
      */
-    private String avater;
+    @TableField(value = "avatar")
+    private String avatar;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

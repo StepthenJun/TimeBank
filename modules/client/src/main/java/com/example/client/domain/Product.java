@@ -56,6 +56,10 @@ public class Product implements Serializable {
      */
     private Date createTime;
 
+    private Integer typeId;
+
+    private Integer stock;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
