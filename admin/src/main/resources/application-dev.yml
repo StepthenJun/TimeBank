@@ -40,7 +40,3 @@ spring:
     hikari:
       max-lifetime: 60000
 
-fabric:
-  networkConnectionConfigPath: connection.json
-  certificatePath: crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
-  privateKeyPath: crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk

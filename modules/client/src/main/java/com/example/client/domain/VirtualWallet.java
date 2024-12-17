@@ -5,16 +5,15 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
  * 
- * @TableName order
+ * @TableName virtual_wallet
  */
-@TableName(value ="order")
+@TableName(value ="virtual_wallet")
 @Data
-public class Order implements Serializable {
+public class VirtualWallet implements Serializable {
     /**
      * 
      */
@@ -30,44 +29,26 @@ public class Order implements Serializable {
     /**
      * 
      */
-    @TableField(value = "total_amount")
-    private Double totalAmount;
+    @TableField(value = "balance")
+    private Double balance;
 
     /**
      * 
      */
-    @TableField(value = "status")
-    private String status;
+    @TableField(value = "card_type")
+    private String cardType;
 
     /**
      * 
      */
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "holder_name")
+    private String holderName;
 
     /**
      * 
      */
-    @TableField(value = "payment_time")
-    private Date paymentTime;
-
-    /**
-     * 
-     */
-    @TableField(value = "completion_time")
-    private Date completionTime;
-
-    /**
-     * 
-     */
-    @TableField(value = "product_id")
-    private Integer productId;
-
-    /**
-     * 
-     */
-    @TableField(value = "quantity")
-    private Integer quantity;
+    @TableField(value = "payment_password")
+    private String paymentPassword;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

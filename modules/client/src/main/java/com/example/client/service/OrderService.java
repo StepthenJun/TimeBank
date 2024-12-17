@@ -11,5 +11,13 @@ import java.util.List;
 * @createDate 2024-11-27 21:54:07
 */
 public interface OrderService extends IService<Order> {
-  Order createOrder(List<OrderItemDto> items);
+
+
+  void updateOrderStatus(Integer orderId, String status);
+
+  void confirmOrder(Integer orderId, String password);
+
+  void cancelOrder(Integer orderId);
+
+  void refundOrder(Integer orderId);
 }

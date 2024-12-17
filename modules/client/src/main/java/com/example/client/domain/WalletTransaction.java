@@ -10,11 +10,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName order
+ * @TableName wallet_transaction
  */
-@TableName(value ="order")
+@TableName(value ="wallet_transaction")
 @Data
-public class Order implements Serializable {
+public class WalletTransaction implements Serializable {
     /**
      * 
      */
@@ -30,44 +30,32 @@ public class Order implements Serializable {
     /**
      * 
      */
-    @TableField(value = "total_amount")
-    private Double totalAmount;
+    @TableField(value = "order_id")
+    private Integer orderId;
 
     /**
      * 
      */
-    @TableField(value = "status")
-    private String status;
+    @TableField(value = "transaction_type")
+    private String transactionType;
 
     /**
      * 
      */
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "amount")
+    private Double amount;
 
     /**
      * 
      */
-    @TableField(value = "payment_time")
-    private Date paymentTime;
+    @TableField(value = "balance")
+    private Double balance;
 
     /**
      * 
      */
-    @TableField(value = "completion_time")
-    private Date completionTime;
-
-    /**
-     * 
-     */
-    @TableField(value = "product_id")
-    private Integer productId;
-
-    /**
-     * 
-     */
-    @TableField(value = "quantity")
-    private Integer quantity;
+    @TableField(value = "transaction_time")
+    private Date transactionTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
