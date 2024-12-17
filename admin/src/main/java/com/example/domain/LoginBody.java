@@ -13,7 +13,7 @@ import lombok.Data;
 
 @Data
 public class LoginBody {
-  @Pattern(regexp = "/d*")
+  @Pattern(regexp = "\\d*",message = "请输入数字")
   @JsonProperty("phone_num")
   private String phoneNum;
 

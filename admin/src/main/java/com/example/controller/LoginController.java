@@ -34,7 +34,7 @@ import java.util.HashMap;
 @RequestMapping("/auth")
 public class LoginController {
 
-    private PasswordAuth passwordAuth;
+    private final PasswordAuth passwordAuth;
     private final AliyunSmsUtil AliyunSmsUtil;
     // 发送短信验证码的接口
     @GetMapping("/sms/code")

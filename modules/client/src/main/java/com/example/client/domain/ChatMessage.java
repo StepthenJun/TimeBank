@@ -10,11 +10,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName cart_item
+ * @TableName chat_message
  */
-@TableName(value ="cart_item")
+@TableName(value ="chat_message")
 @Data
-public class CartItem implements Serializable {
+public class ChatMessage implements Serializable {
     /**
      * 
      */
@@ -24,26 +24,26 @@ public class CartItem implements Serializable {
     /**
      * 
      */
-    @TableField(value = "user_id")
-    private Integer userId;
+    @TableField(value = "sender_id")
+    private Integer senderId;
 
     /**
      * 
      */
-    @TableField(value = "product_id")
-    private Integer productId;
+    @TableField(value = "receiver_id")
+    private Integer receiverId;
 
     /**
      * 
      */
-    @TableField(value = "quantity")
-    private Integer quantity;
+    @TableField(value = "message")
+    private String message;
 
     /**
      * 
      */
-    @TableField(value = "create_time")
-    private Date createTime;
+    @TableField(value = "timestamp")
+    private Date timestamp;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
